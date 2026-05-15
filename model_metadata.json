@@ -1,0 +1,114 @@
+{
+  "numeric_features": [
+    "age",
+    "tenure_months",
+    "num_products",
+    "monthly_spend",
+    "payment_delay_days",
+    "support_tickets_6mo",
+    "login_frequency_monthly",
+    "last_interaction_days",
+    "satisfaction_score",
+    "referral_count"
+  ],
+  "categorical_features": [
+    "gender",
+    "region",
+    "education",
+    "income_bracket",
+    "contract_type",
+    "offer_type",
+    "uplift_segment"
+  ],
+  "binary_features": [
+    "has_loyalty_program",
+    "treatment"
+  ],
+  "all_features": [
+    "age",
+    "tenure_months",
+    "num_products",
+    "monthly_spend",
+    "payment_delay_days",
+    "support_tickets_6mo",
+    "login_frequency_monthly",
+    "last_interaction_days",
+    "satisfaction_score",
+    "referral_count",
+    "gender_enc",
+    "region_enc",
+    "education_enc",
+    "income_bracket_enc",
+    "contract_type_enc",
+    "offer_type_enc",
+    "uplift_segment_enc",
+    "has_loyalty_program",
+    "treatment"
+  ],
+  "scale_cols": [
+    "age",
+    "tenure_months",
+    "num_products",
+    "monthly_spend",
+    "payment_delay_days",
+    "support_tickets_6mo",
+    "login_frequency_monthly",
+    "last_interaction_days",
+    "satisfaction_score",
+    "referral_count",
+    "has_loyalty_program",
+    "treatment"
+  ],
+  "label_classes": {
+    "gender": [
+      "F",
+      "FEMALE",
+      "Female",
+      "M",
+      "Male",
+      "Other",
+      "male"
+    ],
+    "region": [
+      "Central",
+      "East",
+      "North",
+      "South",
+      "West"
+    ],
+    "education": [
+      "Bachelor",
+      "Diploma",
+      "High School",
+      "Master",
+      "PhD",
+      "Unknown"
+    ],
+    "income_bracket": [
+      "High",
+      "Low",
+      "Lower-Mid",
+      "Mid",
+      "Unknown",
+      "Upper-Mid"
+    ],
+    "contract_type": [
+      "Month-to-Month",
+      "One Year",
+      "Two Year"
+    ],
+    "offer_type": [
+      "Discount",
+      "Free Upgrade",
+      "Loyalty Bonus",
+      "Personal Outreach",
+      "Unknown"
+    ],
+    "uplift_segment": [
+      "Lost Cause",
+      "Persuadable",
+      "Sleeping Dog",
+      "Sure Thing"
+    ]
+  }
+}

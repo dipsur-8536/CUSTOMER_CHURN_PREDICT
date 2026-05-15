@@ -1,0 +1,104 @@
+:root{
+  --bg:#0b1020;--panel:#111827cc;--border:rgba(255,255,255,.1);--text:#f8fafc;--muted:#cbd5e1;--primary:#6366f1;--secondary:#8b5cf6;
+}
+*{box-sizing:border-box}
+body{background:linear-gradient(135deg,#070b16,#111827 55%,#1e1b4b);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+.sidebar{background:rgba(8,13,28,.96);border-right:1px solid var(--border);position:sticky;top:0;height:100vh}
+.brand-card{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:22px;padding:22px;text-align:center;box-shadow:0 20px 40px rgba(99,102,241,.25)}
+.nav-link{color:var(--muted);border-radius:14px;padding:13px 15px;font-weight:600}
+.nav-link:hover,.nav-link.active{color:#fff;background:linear-gradient(90deg,var(--primary),var(--secondary))}
+.topbar,.panel,.kpi-card,.segment-card{background:var(--panel);border:1px solid var(--border);border-radius:22px;box-shadow:0 20px 50px rgba(0,0,0,.25);backdrop-filter:blur(12px)}
+.topbar{padding:22px}
+.muted,.section-head span,.kpi-card p,.segment-card p{color:var(--muted)}
+.search-box,.filter-select{background:rgba(255,255,255,.08);border:1px solid var(--border);color:#fff;min-width:220px}
+.search-box::placeholder{color:#94a3b8}
+.search-box:focus,.filter-select:focus{background:rgba(255,255,255,.12);border-color:var(--secondary);box-shadow:none;color:#fff}
+.filter-select option{color:#111}
+.btn-gradient{background:linear-gradient(90deg,var(--primary),var(--secondary));color:white;border:0;font-weight:700}
+.btn-gradient:hover{color:#fff;opacity:.92}
+.kpi-card{padding:22px;display:flex;align-items:center;justify-content:space-between;transition:.25s}
+.kpi-card:hover,.segment-card:hover{transform:translateY(-5px)}
+.kpi-card h3{font-size:34px;margin:8px 0}
+.icon{width:58px;height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.blue{background:rgba(14,165,233,.18);color:#7dd3fc}
+.red{background:rgba(239,68,68,.18);color:#fca5a5}
+.green{background:rgba(34,197,94,.18);color:#86efac}
+.purple{background:rgba(139,92,246,.18);color:#c4b5fd}
+.panel{padding:24px}
+.section-head{margin-bottom:16px}
+.section-head h5{margin:0;font-weight:800}
+.chart-wrap{height:310px}
+.highlight-card{background:linear-gradient(145deg,rgba(99,102,241,.24),rgba(17,24,39,.8))}
+.recommend-box{background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:18px;padding:18px;margin-top:18px}
+.segment-card{padding:22px;transition:.25s;border-left:5px solid var(--primary);height:100%}
+.segment-card h2{font-size:38px}
+.segment-card.priority{border-left-color:#f59e0b}
+.segment-card.danger{border-left-color:#ef4444}
+
+/* ── TABLE FIX: Override Bootstrap 5 CSS variables + hard-force colors ── */
+.table{
+  --bs-table-bg: transparent;
+  --bs-table-color: #f8fafc;
+  --bs-table-hover-bg: rgba(255,255,255,0.06);
+  --bs-table-hover-color: #f8fafc;
+  --bs-table-striped-bg: rgba(255,255,255,0.03);
+  --bs-table-striped-color: #f8fafc;
+  --bs-table-border-color: rgba(255,255,255,0.08);
+  color: #f8fafc !important;
+  background-color: transparent !important;
+}
+.table > :not(caption) > * > * {
+  background-color: transparent !important;
+  color: #f8fafc !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+.table thead th {
+  color: #cbd5e1 !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  background-color: rgba(255,255,255,0.04) !important;
+}
+.table tbody td {
+  color: #f8fafc !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  white-space: nowrap;
+  background-color: transparent !important;
+}
+.table-hover > tbody > tr:hover > * {
+  --bs-table-color-state: #f8fafc;
+  background-color: rgba(255,255,255,0.06) !important;
+  color: #f8fafc !important;
+}
+.table-responsive {
+  background-color: transparent !important;
+}
+/* ─────────────────────────────────────────────────────────────────────── */
+
+.badge-soft{padding:7px 11px;border-radius:999px;font-weight:700;font-size:12px}
+.badge-churn{background:rgba(239,68,68,.18);color:#fecaca}
+.badge-active{background:rgba(34,197,94,.18);color:#bbf7d0}
+.badge-treated{background:rgba(99,102,241,.18);color:#c7d2fe}
+.badge-not{background:rgba(148,163,184,.18);color:#e2e8f0}
+
+/* Prediction form inputs dark theme */
+.panel .form-control, .panel .form-select {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--border);
+  color: #fff;
+}
+.panel .form-control::placeholder { color: #94a3b8; }
+.panel .form-control:focus, .panel .form-select:focus {
+  background: rgba(255,255,255,0.12);
+  border-color: var(--secondary);
+  box-shadow: none;
+  color: #fff;
+}
+.panel .form-select option { color: #111; }
+.panel .form-label { color: var(--muted); font-weight: 600; }
+
+@media(max-width:991px){.sidebar{height:auto;position:relative}.chart-wrap{height:260px}}
+

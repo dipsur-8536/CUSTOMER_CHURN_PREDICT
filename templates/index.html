@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Churn Uplift Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <aside class="col-lg-2 sidebar p-3">
+        <div class="brand-card mb-4">
+          <i class="bi bi-activity fs-3"></i>
+          <h5 class="mb-0 mt-2">RetentionAI</h5>
+          <small>Churn + Uplift Dashboard</small>
+        </div>
+        <nav class="nav flex-column gap-2">
+          <a class="nav-link active" href="#dashboard"><i class="bi bi-grid-1x2-fill me-2"></i>Dashboard</a>
+          <a class="nav-link" href="#segments"><i class="bi bi-diagram-3-fill me-2"></i>Uplift Segments</a>
+          <a class="nav-link" href="#offers"><i class="bi bi-gift-fill me-2"></i>Offer Strategy</a>
+          <a class="nav-link" href="#customers"><i class="bi bi-people-fill me-2"></i>Customers</a>
+          <a class="nav-link" href="#reports"><i class="bi bi-file-earmark-bar-graph-fill me-2"></i>Reports</a>
+        </nav>
+      </aside>
+
+      <main class="col-lg-10 p-4" id="dashboard">
+        <div class="topbar d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+          <div>
+            <h2 class="mb-1">Causal Uplift-Aware Churn Prediction</h2>
+            <p class="mb-0 muted">Frontend designed using your actual dataset columns: churn, treatment, offer type, uplift segment, customer behavior and profile data.</p>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <input class="form-control search-box" id="globalSearch" type="search" placeholder="Search customer, region, segment..." />
+            <button class="btn btn-gradient" id="exportReportBtn"><i class="bi bi-download me-1"></i>Show result</button>
+          </div>
+        </div>
+
+        <section class="row g-4 mb-4">
+          <div class="col-md-6 col-xl-3"><div class="kpi-card"><div><p>Total Customers</p><h3>3,535</h3><span class="text-info">Full dataset size</span></div><i class="bi bi-people-fill icon blue"></i></div></div>
+          <div class="col-md-6 col-xl-3"><div class="kpi-card"><div><p>Churned Customers</p><h3>1,591</h3><span class="text-danger">45.01% churn rate</span></div><i class="bi bi-exclamation-triangle-fill icon red"></i></div></div>
+          <div class="col-md-6 col-xl-3"><div class="kpi-card"><div><p>Treated Customers</p><h3>1,725</h3><span class="text-success">Received offers</span></div><i class="bi bi-gift-fill icon green"></i></div></div>
+          <div class="col-md-6 col-xl-3"><div class="kpi-card"><div><p>Best Target Segment</p><h3>981</h3><span class="text-warning">Persuadable users</span></div><i class="bi bi-bullseye icon purple"></i></div></div>
+        </section>
+
+        <section class="row g-4 mb-4">
+          <div class="col-xl-8">
+            <div class="panel h-100">
+              <div class="section-head"><h5>Customer Churn Status</h5><span>Not churned vs churned</span></div>
+              <div class="chart-wrap"><canvas id="churnChart"></canvas></div>
+            </div>
+          </div>
+          <div class="col-xl-4">
+            <div class="panel h-100 highlight-card">
+              <h5>Smart Recommendation</h5>
+              <p class="muted">Focus mainly on <b>Persuadable</b> customers because they are most likely to stay when given the right offer.</p>
+              <div class="recommend-box">
+                <span class="badge rounded-pill text-bg-warning">Priority</span>
+                <h4 class="mt-3">Target: Persuadable</h4>
+                <p>Recommended actions: Discount, Loyalty Bonus, Personal Outreach.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="row g-4 mb-4" id="segments">
+          <div class="col-xl-4"><div class="panel"><div class="section-head"><h5>Uplift Segments</h5><span>Customer response groups</span></div><div class="chart-wrap"><canvas id="segmentChart"></canvas></div></div></div>
+          <div class="col-xl-4" id="offers"><div class="panel"><div class="section-head"><h5>Offer Type Distribution</h5><span>Strategy applied</span></div><div class="chart-wrap"><canvas id="offerChart"></canvas></div></div></div>
+          <div class="col-xl-4"><div class="panel"><div class="section-head"><h5>Region Wise Customers</h5><span>East, North, South, West, Central</span></div><div class="chart-wrap"><canvas id="regionChart"></canvas></div></div></div>
+        </section>
+
+        <section class="row g-4 mb-4">
+          <div class="col-md-6 col-xl-3"><div class="segment-card priority"><h6>Persuadable</h6><h2>981</h2><p>Best target. Give offers to reduce churn.</p></div></div>
+          <div class="col-md-6 col-xl-3"><div class="segment-card"><h6>Sleeping Dog</h6><h2>1,077</h2><p>Avoid unnecessary offers; treatment may not help.</p></div></div>
+          <div class="col-md-6 col-xl-3"><div class="segment-card"><h6>Sure Thing</h6><h2>872</h2><p>Already likely to stay. Use light engagement.</p></div></div>
+          <div class="col-md-6 col-xl-3"><div class="segment-card danger"><h6>Lost Cause</h6><h2>605</h2><p>Hard to retain. Use limited resources carefully.</p></div></div>
+        </section>
+
+        <section class="panel mb-4" id="prediction-form-section">
+          <div class="section-head mb-3">
+            <h5>Single Customer Prediction</h5>
+            <span>Input customer details to get a real-time churn prediction</span>
+          </div>
+          <div class="mb-3 px-1" style="background:rgba(99,102,241,0.10);border:1px solid rgba(99,102,241,0.3);border-radius:12px;padding:10px 16px;font-size:0.85rem;color:#c4b5fd;">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            <strong>Dataset Ranges:</strong>&nbsp; Age: 18–75 &nbsp;|&nbsp; Monthly Spend: ₹10–₹2,489 &nbsp;|&nbsp; Satisfaction: 1–5 &nbsp;|&nbsp; Treatment: Control or Treated.
+            Values outside these ranges are <strong>rejected</strong> because the model was trained only on this data.
+          </div>
+          <form id="predictionForm" class="row g-3" novalidate>
+            <div class="col-md-3">
+              <label class="form-label">Age <small class="text-muted">(18–75)</small></label>
+              <input type="number" class="form-control" id="formAge" min="18" max="75" step="1" placeholder="e.g. 35" required>
+              <div class="invalid-feedback">Age must be between 18 and 75.</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Monthly Spend ₹ <small class="text-muted">(10–2,489)</small></label>
+              <input type="number" class="form-control" id="formSpend" min="10" max="2489" step="0.01" placeholder="e.g. 85" required>
+              <div class="invalid-feedback">Monthly Spend must be ₹10–₹2,489.</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Satisfaction Score <small class="text-muted">(1–5)</small></label>
+              <input type="number" class="form-control" id="formSatisfaction" min="1" max="5" step="1" placeholder="e.g. 4" required>
+              <div class="invalid-feedback">Satisfaction must be 1–5.</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Treatment Group</label>
+              <select class="form-select" id="formTreatment">
+                <option value="0">Control (0) — No Offer</option>
+                <option value="1">Treated (1) — Received Offer</option>
+              </select>
+            </div>
+            <div class="col-12 mt-3 d-flex align-items-center gap-3 flex-wrap">
+              <button type="submit" class="btn btn-gradient px-4"><i class="bi bi-magic me-2"></i>Predict Churn</button>
+              <div id="predictionResult" class="d-none px-3 py-2 rounded" style="font-weight:600;font-size:1.05rem;max-width:500px;"></div>
+            </div>
+          </form>
+        </section>
+
+
+
+
+        <section class="panel mb-4" id="customers">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+            <div class="section-head mb-0"><h5>Customer Prediction Table</h5><span>Sample rows using your dataset columns</span></div>
+            <div class="d-flex gap-2 flex-wrap">
+              <select class="form-select filter-select" id="segmentFilter">
+                <option value="all">All Segments</option>
+                <option value="Persuadable">Persuadable</option>
+                <option value="Sleeping Dog">Sleeping Dog</option>
+                <option value="Sure Thing">Sure Thing</option>
+                <option value="Lost Cause">Lost Cause</option>
+              </select>
+              <input type="text" class="form-control search-box" id="tableSearch" placeholder="Search table..." />
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle" id="customerTable">
+              <thead><tr><th>ID</th><th>Age</th><th>Region</th><th>Income</th><th>Spend</th><th>Satisfaction</th><th>Treatment</th><th>Offer</th><th>Segment</th><th>Churn</th></tr></thead>
+              <tbody id="customerBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
