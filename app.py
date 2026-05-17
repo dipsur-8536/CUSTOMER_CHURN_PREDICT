@@ -39,7 +39,6 @@ def predict():
             age            = float(data.get('age', 0))
             monthly_spend  = float(data.get('monthly_spend', 0))
             satisfaction   = float(data.get('satisfaction_score', 0))
-            treatment      = int(data.get('treatment', 0))
         except (TypeError, ValueError):
             return jsonify({'error': 'All fields must be valid numbers.'}), 400
 
@@ -51,8 +50,6 @@ def predict():
             errors.append(f'Monthly Spend must be ₹10–₹2,489 (got ₹{monthly_spend:.0f})')
         if not (1 <= satisfaction <= 5):
             errors.append(f'Satisfaction must be 1–5 (got {satisfaction})')
-        if treatment not in (0, 1):
-            errors.append('Treatment must be 0 (Control) or 1 (Treated)')
 
         if errors:
             return jsonify({'error': ' | '.join(errors), 'type': 'validation'}), 422
@@ -61,8 +58,7 @@ def predict():
         features = {
             'age': age,
             'monthly_spend': monthly_spend,
-            'satisfaction_score': satisfaction,
-            'treatment': treatment
+            'satisfaction_score': satisfaction
         }
         df       = pd.DataFrame([features])
         X_scaled = scaler.transform(df)
@@ -97,7 +93,6 @@ def get_customers():
                 'income': str(row.get('income_bracket', '')),
                 'spend': round(float(row['monthly_spend']), 2) if pd.notna(row.get('monthly_spend')) else 0,
                 'satisfaction': int(row['satisfaction_score']) if pd.notna(row.get('satisfaction_score')) else 0,
-                'treatment': int(row['treatment']) if pd.notna(row.get('treatment')) else 0,
                 'offer': str(row.get('offer_type', '')),
                 'segment': str(row.get('uplift_segment', '')),
                 'churn': int(row['churn']) if pd.notna(row.get('churn')) else 0
@@ -124,7 +119,7 @@ def export_report():
             'satisfaction_score': 'Satisfaction Score',
             'contract_type': 'Contract Type',
             'has_loyalty_program': 'Has Loyalty Program',
-            'referral_count': 'Referral Count', 'treatment': 'Treatment',
+            'referral_count': 'Referral Count',
             'offer_type': 'Offer Type', 'uplift_segment': 'Uplift Segment',
             'churn': 'Churn'
         })

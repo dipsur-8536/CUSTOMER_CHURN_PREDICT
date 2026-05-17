@@ -57,7 +57,6 @@ function renderTable(){
     .map(c => `
       <tr>
         <td>${c.id}</td><td>${c.age}</td><td>${c.region}</td><td>${c.income}</td><td>₹${c.spend}</td><td>${c.satisfaction}/5</td>
-        <td>${c.treatment ? badge("Treated","badge-treated") : badge("Not Treated","badge-not")}</td>
         <td>${c.offer}</td><td>${c.segment}</td>
         <td>${c.churn ? badge("Churned","badge-churn") : badge("Active","badge-active")}</td>
       </tr>`).join("");
@@ -124,8 +123,7 @@ if (predictionForm) {
     const data = {
       age:               age,
       monthly_spend:     spend,
-      satisfaction_score: sat,
-      treatment:         parseInt(val('formTreatment')) || 0
+      satisfaction_score: sat
     };
 
 
@@ -184,7 +182,7 @@ function escapeCsv(val) {
 }
 
 function downloadCSV(rows) {
-  const headers = ['Customer ID','Age','Region','Income Bracket','Monthly Spend','Satisfaction','Treatment','Offer Type','Uplift Segment','Churn'];
+  const headers = ['Customer ID','Age','Region','Income Bracket','Monthly Spend','Satisfaction','Offer Type','Uplift Segment','Churn'];
   const csvLines = [
     headers.join(','),
     ...rows.map(c => [
@@ -194,7 +192,6 @@ function downloadCSV(rows) {
       escapeCsv(c.income),
       escapeCsv(c.spend),
       escapeCsv(c.satisfaction),
-      escapeCsv(c.treatment === 1 ? 'Treated' : 'Control'),
       escapeCsv(c.offer && c.offer !== 'nan' ? c.offer : 'No Offer'),
       escapeCsv(c.segment),
       escapeCsv(c.churn === 1 ? 'Churned' : 'Active')

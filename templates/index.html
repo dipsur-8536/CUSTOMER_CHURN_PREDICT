@@ -39,10 +39,9 @@
         </div>
 
         <section class="row g-4 mb-4">
-          <div class="col-md-6 col-xl-3"><div class="kpi-card"><div><p>Total Customers</p><h3>3,535</h3><span class="text-info">Full dataset size</span></div><i class="bi bi-people-fill icon blue"></i></div></div>
-          <div class="col-md-6 col-xl-3"><div class="kpi-card"><div><p>Churned Customers</p><h3>1,591</h3><span class="text-danger">45.01% churn rate</span></div><i class="bi bi-exclamation-triangle-fill icon red"></i></div></div>
-          <div class="col-md-6 col-xl-3"><div class="kpi-card"><div><p>Treated Customers</p><h3>1,725</h3><span class="text-success">Received offers</span></div><i class="bi bi-gift-fill icon green"></i></div></div>
-          <div class="col-md-6 col-xl-3"><div class="kpi-card"><div><p>Best Target Segment</p><h3>981</h3><span class="text-warning">Persuadable users</span></div><i class="bi bi-bullseye icon purple"></i></div></div>
+          <div class="col-md-4"><div class="kpi-card"><div><p>Total Customers</p><h3>3,535</h3><span class="text-info">Full dataset size</span></div><i class="bi bi-people-fill icon blue"></i></div></div>
+          <div class="col-md-4"><div class="kpi-card"><div><p>Churned Customers</p><h3>1,591</h3><span class="text-danger">45.01% churn rate</span></div><i class="bi bi-exclamation-triangle-fill icon red"></i></div></div>
+          <div class="col-md-4"><div class="kpi-card"><div><p>Best Target Segment</p><h3>981</h3><span class="text-warning">Persuadable users</span></div><i class="bi bi-bullseye icon purple"></i></div></div>
         </section>
 
         <section class="row g-4 mb-4">
@@ -85,31 +84,24 @@
           </div>
           <div class="mb-3 px-1" style="background:rgba(99,102,241,0.10);border:1px solid rgba(99,102,241,0.3);border-radius:12px;padding:10px 16px;font-size:0.85rem;color:#c4b5fd;">
             <i class="bi bi-info-circle-fill me-2"></i>
-            <strong>Dataset Ranges:</strong>&nbsp; Age: 18–75 &nbsp;|&nbsp; Monthly Spend: ₹10–₹2,489 &nbsp;|&nbsp; Satisfaction: 1–5 &nbsp;|&nbsp; Treatment: Control or Treated.
+            <strong>Dataset Ranges:</strong>&nbsp; Age: 18–75 &nbsp;|&nbsp; Monthly Spend: ₹10–₹2,489 &nbsp;|&nbsp; Satisfaction: 1–5
             Values outside these ranges are <strong>rejected</strong> because the model was trained only on this data.
           </div>
           <form id="predictionForm" class="row g-3" novalidate>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="form-label">Age <small class="text-muted">(18–75)</small></label>
               <input type="number" class="form-control" id="formAge" min="18" max="75" step="1" placeholder="e.g. 35" required>
               <div class="invalid-feedback">Age must be between 18 and 75.</div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="form-label">Monthly Spend ₹ <small class="text-muted">(10–2,489)</small></label>
               <input type="number" class="form-control" id="formSpend" min="10" max="2489" step="0.01" placeholder="e.g. 85" required>
               <div class="invalid-feedback">Monthly Spend must be ₹10–₹2,489.</div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="form-label">Satisfaction Score <small class="text-muted">(1–5)</small></label>
               <input type="number" class="form-control" id="formSatisfaction" min="1" max="5" step="1" placeholder="e.g. 4" required>
               <div class="invalid-feedback">Satisfaction must be 1–5.</div>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label">Treatment Group</label>
-              <select class="form-select" id="formTreatment">
-                <option value="0">Control (0) — No Offer</option>
-                <option value="1">Treated (1) — Received Offer</option>
-              </select>
             </div>
             <div class="col-12 mt-3 d-flex align-items-center gap-3 flex-wrap">
               <button type="submit" class="btn btn-gradient px-4"><i class="bi bi-magic me-2"></i>Predict Churn</button>
@@ -137,7 +129,7 @@
           </div>
           <div class="table-responsive">
             <table class="table table-hover align-middle" id="customerTable">
-              <thead><tr><th>ID</th><th>Age</th><th>Region</th><th>Income</th><th>Spend</th><th>Satisfaction</th><th>Treatment</th><th>Offer</th><th>Segment</th><th>Churn</th></tr></thead>
+              <thead><tr><th>ID</th><th>Age</th><th>Region</th><th>Income</th><th>Spend</th><th>Satisfaction</th><th>Offer</th><th>Segment</th><th>Churn</th></tr></thead>
               <tbody id="customerBody"></tbody>
             </table>
           </div>
